@@ -324,14 +324,44 @@ audio {
   animation: fadeUp 0.6s ease both;
 }
 
-.avatar {
-  width: 160px; height: 160px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky), var(--ink));
-  border: 3px solid var(--gold);
+/* ── AVATAR CONTAINER (фото або ініціали) ── */
+.avatar-container {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky) 0%, #1a1a30 100%);
+  border: 2px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Unbounded', sans-serif;
-  font-size: 52px; font-weight: 900; color: var(--gold);
+  margin-bottom: 20px;
 }
+
+/* Великий аватар капітана */
+.avatar-container.avatar-lg {
+  width: 160px; height: 160px;
+  border: 3px solid var(--gold);
+  background: linear-gradient(135deg, var(--sky), var(--ink));
+  margin-bottom: 0;
+}
+
+/* Фото всередині контейнера */
+.avatar-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: none;
+}
+
+/* Ініціали (fallback) */
+.avatar-fallback {
+  width: 100%; height: 100%;
+  display: none;
+  align-items: center; justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900; color: var(--gold);
+  font-size: 20px;
+}
+.avatar-lg .avatar-fallback { font-size: 52px; }
 
 .captain-role { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .captain-name { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 14px; }
@@ -363,14 +393,7 @@ audio {
   transition: opacity 0.25s;
 }
 
-.member-avatar {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky) 0%, #1a1a30 100%);
-  border: 2px solid rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Unbounded', sans-serif;
-  font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 20px;
-}
+/* member-avatar replaced by .avatar-container above */
 
 .member-role { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
 .member-name { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
@@ -399,41 +422,6 @@ audio {
 /* ══════════════════════════════════════
    АНІМАЦІЇ
 ══════════════════════════════════════ */
-
-/* ── AVATAR PHOTO / INITIALS ── */
-
-/* Приховуємо img за замовчуванням; JS показує якщо фото є */
-.avatar img,
-.member-avatar img {
-  display: none;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* Коли фото завантажилось — приховуємо псевдоініціали */
-.avatar[data-show-initials="false"]::after,
-.member-avatar[data-show-initials="false"]::after {
-  display: none;
-}
-
-/* Ініціали через ::after, беруться з data-initials */
-.avatar[data-initials]::after,
-.member-avatar[data-initials]::after {
-  content: attr(data-initials);
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900;
-  color: var(--gold);
-}
-
-.avatar[data-initials]::after { font-size: 52px; }
-.member-avatar[data-initials]::after { font-size: 20px; }
-
-/* Коли фото є — ::after не потрібен */
-.avatar[data-show-initials="false"] img,
-.member-avatar[data-show-initials="false"] img {
-  display: block;
-}
 
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-18px); }
