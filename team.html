@@ -25,7 +25,9 @@
 <!-- ═══════════════════ CAPTAIN ═══════════════════ -->
 <section class="captain-section">
   <div class="captain-card">
-    <div class="avatar">Г</div>
+    <div class="avatar" data-initials="Г">
+      <img src="Grisha.jpg" alt="Гальчинський Григорій">
+    </div>
     <div class="captain-info">
       <p class="captain-role">⭐️ Капітан</p>
       <h2 class="captain-name">Гальчинський Григорій</h2>
@@ -43,7 +45,9 @@
 
     <div class="member-card">
       <span class="card-num">02</span>
-      <div class="member-avatar">С</div>
+      <div class="member-avatar" data-initials="С">
+        <img src="Sofia.jpg" alt="Вецко Софія">
+      </div>
       <p class="member-role">яхззащовонавідповідає</p>
       <h3 class="member-name">Вецко Софія</h3>
       <p class="member-desc">Саме ім'я внушає страх навіть в стародавніх вікінгів...</p>
@@ -52,7 +56,9 @@
 
     <div class="member-card">
       <span class="card-num">03</span>
-      <div class="member-avatar">Н</div>
+      <div class="member-avatar" data-initials="Н">
+        <img src="Nazar.jpg" alt="Рєзніков Назар">
+      </div>
       <p class="member-role">Прикольний чувак</p>
       <h3 class="member-name">Рєзніков Назар</h3>
       <p class="member-desc">Відповідає за базар. Вирішує складні завдання(Що взяти в буфеті для всієї команди)</p>
@@ -61,7 +67,9 @@
 
     <div class="member-card">
       <span class="card-num">04</span>
-      <div class="member-avatar">Є</div>
+      <div class="member-avatar" data-initials="Є">
+        <img src="" alt="Вовк Євген">
+      </div>
       <p class="member-role">Ну вроді програміст</p>
       <h3 class="member-name">Вовк Євген</h3>
       <p class="member-desc">Душа компанії, що правда, компанія бездушна</p>
@@ -70,7 +78,9 @@
 
     <div class="member-card">
       <span class="card-num">05</span>
-      <div class="member-avatar">К</div>
+      <div class="member-avatar" data-initials="К">
+        <img src="" alt="Кузів Олександр">
+      </div>
       <p class="member-role">Учасник</p>
       <h3 class="member-name">Кузів Олександр</h3>
       <p class="member-desc">Заблукав і опинився тут</p>
@@ -87,5 +97,29 @@
   </nav>
 </footer>
 
+<script>
+  // Для кожного аватара — перевіряємо фото, при помилці показуємо ініціали
+  document.querySelectorAll('.avatar[data-initials], .member-avatar[data-initials]').forEach(function(wrap) {
+    var img = wrap.querySelector('img');
+    var initials = wrap.getAttribute('data-initials');
+
+    function showInitials() {
+      img.style.display = 'none';
+      wrap.setAttribute('data-show-initials', 'true');
+    }
+
+    // Якщо src порожній або відсутній — одразу ініціали
+    if (!img || !img.src || img.src === window.location.href) {
+      showInitials();
+      return;
+    }
+
+    img.addEventListener('error', showInitials);
+    img.addEventListener('load', function() {
+      img.style.display = 'block';
+      wrap.setAttribute('data-show-initials', 'false');
+    });
+  });
+</script>
 </body>
 </html>

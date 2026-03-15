@@ -400,6 +400,41 @@ audio {
    АНІМАЦІЇ
 ══════════════════════════════════════ */
 
+/* ── AVATAR PHOTO / INITIALS ── */
+
+/* Приховуємо img за замовчуванням; JS показує якщо фото є */
+.avatar img,
+.member-avatar img {
+  display: none;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Коли фото завантажилось — приховуємо псевдоініціали */
+.avatar[data-show-initials="false"]::after,
+.member-avatar[data-show-initials="false"]::after {
+  display: none;
+}
+
+/* Ініціали через ::after, беруться з data-initials */
+.avatar[data-initials]::after,
+.member-avatar[data-initials]::after {
+  content: attr(data-initials);
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.avatar[data-initials]::after { font-size: 52px; }
+.member-avatar[data-initials]::after { font-size: 20px; }
+
+/* Коли фото є — ::after не потрібен */
+.avatar[data-show-initials="false"] img,
+.member-avatar[data-show-initials="false"] img {
+  display: block;
+}
+
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-18px); }
   to   { opacity: 1; transform: translateY(0); }
